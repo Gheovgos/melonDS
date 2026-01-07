@@ -514,7 +514,7 @@ const char* ButtonToString(u64 buttons)
     }
 
     if (result.empty()) {
-        return "•͡˘㇁•͡˘";
+        return "...";
     }
 
     return result.c_str();
@@ -536,9 +536,15 @@ void DoInputButton(BoxGui::Frame& parent, BoxGui::Skewer& skewer, const char* na
             double StartTimestamp;
             double EndTimestamp = -INFINITY;
             bool inputCaptured = false;
+            bool initialized = false;
 
             bool operator()(BoxGui::Frame& rootFrame)
             {
+                if (!initialized) {
+                    MappedKey = 0;
+                    initialized = true;
+                }
+                
                 Gfx::Color color = DarkColor;
                 color.A = (float)std::min((Gfx::AnimationTimestamp - StartTimestamp) * 5.0, 0.8);
                 Gfx::DrawRectangle(rootFrame.Area.Position, rootFrame.Area.Size, color);
@@ -563,7 +569,7 @@ void DoInputButton(BoxGui::Frame& parent, BoxGui::Skewer& skewer, const char* na
 
                 const double elapsedInput = Gfx::AnimationTimestamp - StartTimestamp;
 
-                if (!inputCaptured && elapsedInput > 0.3)
+                if (elapsedInput > 0.3)
                 {
                     static PadState pad;
                     static bool padInitialized = false;
@@ -573,11 +579,18 @@ void DoInputButton(BoxGui::Frame& parent, BoxGui::Skewer& skewer, const char* na
                         padInitialized = true;
                     }
                     padUpdate(&pad);
-                    u64 keys = padGetButtonsDown(&pad);
-                    if (keys != 0) {
-                        MappedKey = keys;
+                    
+                    // 累积新按下的键
+                    u64 keysDown = padGetButtonsDown(&pad);
+                    if (keysDown != 0) {
+                        MappedKey |= keysDown;  // 累积，不是覆盖
                         inputCaptured = true;
-                        EndTimestamp = Gfx::AnimationTimestamp;
+                    }
+                    
+                    // 松开任意键时保存
+                    u64 keysUp = padGetButtonsUp(&pad);
+                    if (keysUp != 0 && inputCaptured) {
+                        EndTimestamp = 0.f;
                     }
                 }
 
