@@ -18,6 +18,8 @@
 #include <dirent.h>
 #include <assert.h>
 
+#include "i18n.h"
+
 namespace Filebrowser
 {
 
@@ -41,8 +43,8 @@ void Init()
 
     swkbdCreate(&SearchKeyboard, 0);
     swkbdConfigMakePresetDefault(&SearchKeyboard);
-    swkbdConfigSetOkButtonText(&SearchKeyboard, "Go");
-    swkbdConfigSetHeaderText(&SearchKeyboard, "Enter text to search for");
+    swkbdConfigSetOkButtonText(&SearchKeyboard, i18n::get("Go"));
+    swkbdConfigSetHeaderText(&SearchKeyboard, i18n::get("Enter text to search for"));
 }
 
 void DeInit()
@@ -205,7 +207,7 @@ SwkbdTextCheckResult CheckSearch(char* tmpString, size_t tmpSize)
 {
     if (FindNextOccurence(tmpString) == -1)
     {
-        strcpy(tmpString, "Couldn't find any matching file or directory :(");
+        strcpy(tmpString, i18n::get("Couldn't find any matching file or directory :("));
         return SwkbdTextCheckResult_Prompt;
     }
     return SwkbdTextCheckResult_OK;

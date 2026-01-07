@@ -1,6 +1,7 @@
 #include "NotificationSystem.h"
 #include "Style.h"
 #include "PlatformConfig.h"
+#include "i18n.h"
 #include <cmath>
 #include <cstdio>
 #include <queue>
@@ -15,7 +16,7 @@ void Notification::Show(const char* fmt, ...) {
     char buffer[256];
     va_list args;
     va_start(args, fmt);
-    vsnprintf(buffer, sizeof(buffer), fmt, args);
+    vsnprintf(buffer, sizeof(buffer), i18n::get(fmt), args);
     va_end(args);
 
     Notification newNotif;
@@ -35,7 +36,7 @@ void Notification::ShowWithIcon(int texId, int width, int height, const char* fm
     char buffer[256];
     va_list args;
     va_start(args, fmt);
-    vsnprintf(buffer, sizeof(buffer), fmt, args);
+    vsnprintf(buffer, sizeof(buffer), i18n::get(fmt), args);
     va_end(args);
 
     Notification newNotif;

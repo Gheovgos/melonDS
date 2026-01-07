@@ -15,6 +15,8 @@
 #include "RetroAchievements.h"
 #include "NotificationSystem.h"
 
+#include "i18n.h"
+
 namespace {
     static u64 PlatformKeysHeld = 0;
     static u64 PlatformKeysDown = 0;
@@ -370,144 +372,144 @@ const char* ButtonToString(u64 buttons)
     result.clear();
     bool first = true;
 
-    if (buttons & HidNpadButton_A) {
+    if (buttons & HidNpadButton_A) {  // A
         if (!first) result += " + ";
-        result += "A";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_B) {
+    if (buttons & HidNpadButton_B) {  // B
         if (!first) result += " + ";
-        result += "B";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_X) {
+    if (buttons & HidNpadButton_X) {  // X
         if (!first) result += " + ";
-        result += "X";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_Y) {
+    if (buttons & HidNpadButton_Y) {  // Y
         if (!first) result += " + ";
-        result += "Y";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickL) {
+    if (buttons & HidNpadButton_StickL) {  // Left Stick Button
         if (!first) result += " + ";
-        result += "L Stick Button";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickR) {
+    if (buttons & HidNpadButton_StickR) {  // Right Stick Button
         if (!first) result += " + ";
-        result += "R Stick Button";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_L) {
+    if (buttons & HidNpadButton_L) {  // L
         if (!first) result += " + ";
-        result += "L";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_R) {
+    if (buttons & HidNpadButton_R) {  // R
         if (!first) result += " + ";
-        result += "R";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_ZL) {
+    if (buttons & HidNpadButton_ZL) {  // ZL
         if (!first) result += " + ";
-        result += "ZL";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_ZR) {
+    if (buttons & HidNpadButton_ZR) {  // ZR
         if (!first) result += " + ";
-        result += "ZR";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_Plus) {
+    if (buttons & HidNpadButton_Plus) {  // +
         if (!first) result += " AND ";
-        result += "+";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_Minus) {
+    if (buttons & HidNpadButton_Minus) {  // -
         if (!first) result += " + ";
-        result += "-";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_Up) {
+    if (buttons & HidNpadButton_Up) {  // D-Pad Up
         if (!first) result += " + ";
-        result += "D-Pad UP";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_Down) {
+    if (buttons & HidNpadButton_Down) {  // D-Pad Down
         if (!first) result += " + ";
-        result += "D-Pad Down";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_Right) {
+    if (buttons & HidNpadButton_Right) {  // D-Pad Right
         if (!first) result += " + ";
-        result += "D-Pad Right";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_Left) {
+    if (buttons & HidNpadButton_Left) {  // D-Pad Left
         if (!first) result += " + ";
-        result += "D-Pad Left";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickLLeft) {
+    if (buttons & HidNpadButton_StickLLeft) {  // Left Stick Left
         if (!first) result += " + ";
-        result += "L Stick Left";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickLUp) {
+    if (buttons & HidNpadButton_StickLUp) {  // Left Stick Up
         if (!first) result += " + ";
-        result += "L Stick Up";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickLRight) {
+    if (buttons & HidNpadButton_StickLRight) {  // Left Stick Right
         if (!first) result += " + ";
-        result += "L Stick Right";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickLDown) {
+    if (buttons & HidNpadButton_StickLDown) {  // Left Stick Down
         if (!first) result += " + ";
-        result += "L Stick Down";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickRLeft) {
+    if (buttons & HidNpadButton_StickRLeft) {  // Right Stick Left
         if (!first) result += " + ";
-        result += "R Stick Left";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickRUp) {
+    if (buttons & HidNpadButton_StickRUp) {  // Right Stick Up
         if (!first) result += " + ";
-        result += "R Stick Up";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickRRight) {
+    if (buttons & HidNpadButton_StickRRight) {  // Right Stick Right
         if (!first) result += " + ";
-        result += "R Stick Right";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_StickRDown) {
+    if (buttons & HidNpadButton_StickRDown) {  // Right Stick Down
         if (!first) result += " + ";
-        result += "R Stick Down";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_LeftSL) {
+    if (buttons & HidNpadButton_LeftSL) {  // Left SL
         if (!first) result += " + ";
-        result += "Left SL";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_LeftSR) {
+    if (buttons & HidNpadButton_LeftSR) {  // Left SR
         if (!first) result += " + ";
-        result += "Left SR";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_RightSL) {
+    if (buttons & HidNpadButton_RightSL) {  // Right SL
         if (!first) result += " + ";
-        result += "Right SL";
+        result += "";
         first = false;
     }
-    if (buttons & HidNpadButton_RightSR) {
+    if (buttons & HidNpadButton_RightSR) {  // Right SR
         if (!first) result += " + ";
-        result += "Right SR";
+        result += "";
         first = false;
     }
 
@@ -705,7 +707,7 @@ void DoGui(BoxGui::Frame& parent)
             }
 
             SectionHeader(settingsFrame, settingsSkewer, "RetroAchievements");
-            DoTextField(settingsFrame, settingsSkewer, "RetroAchievements Username", username, sizeof(username));
+            DoTextField(settingsFrame, settingsSkewer, "RetroAchievements Username", username, sizeof(username), true);
             DoTextField(settingsFrame, settingsSkewer, "RetroAchievements Password", password, sizeof(password));
             DoCheckbox(settingsFrame, settingsSkewer, "Login", loginRA);
             if (loginRA)
@@ -791,7 +793,7 @@ void DoGui(BoxGui::Frame& parent)
         {
             SectionHeader(settingsFrame, settingsSkewer, "Joycon");
             bool fastforward = Config::FastForward;
-            DoCheckbox(settingsFrame, settingsSkewer, "Hold to fastforward (ZL)", fastforward);
+            DoCheckbox(settingsFrame, settingsSkewer, "Hold to fastforward (ZL)", fastforward, true);
             Config::FastForward = fastforward;
         }
         {
@@ -802,41 +804,41 @@ void DoGui(BoxGui::Frame& parent)
 
             SectionHeader(settingsFrame, settingsSkewer, "Buttons Remapping");
 
-            DoInputButton(settingsFrame, settingsSkewer, "A: ", InputConfig::ButtonA);
-            DoInputButton(settingsFrame, settingsSkewer, "B: ", InputConfig::ButtonB);
-            DoInputButton(settingsFrame, settingsSkewer, "X: ", InputConfig::ButtonX);
-            DoInputButton(settingsFrame, settingsSkewer, "Y: ", InputConfig::ButtonY);
-            DoInputButton(settingsFrame, settingsSkewer, "Left Stick Button: ", InputConfig::ButtonStickL);
-            DoInputButton(settingsFrame, settingsSkewer, "Right Stick Button: ", InputConfig::ButtonStickR);
-            DoInputButton(settingsFrame, settingsSkewer, "L: ", InputConfig::ButtonL);
-            DoInputButton(settingsFrame, settingsSkewer, "R: ", InputConfig::ButtonR);
-            DoInputButton(settingsFrame, settingsSkewer, "ZL: ", InputConfig::ButtonZL);
-            DoInputButton(settingsFrame, settingsSkewer, "ZR: ", InputConfig::ButtonZR);
-            DoInputButton(settingsFrame, settingsSkewer, "Start: ", InputConfig::ButtonStart);
-            DoInputButton(settingsFrame, settingsSkewer, "Select: ", InputConfig::ButtonSelect);
-            DoInputButton(settingsFrame, settingsSkewer, "Up: ", InputConfig::ButtonUp);
-            DoInputButton(settingsFrame, settingsSkewer, "Down: ", InputConfig::ButtonDown);
-            DoInputButton(settingsFrame, settingsSkewer, "Left: ", InputConfig::ButtonLeft);
-            DoInputButton(settingsFrame, settingsSkewer, "Right: ", InputConfig::ButtonRight);
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonA, true);  // A
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonB);  // B
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonX);  // X
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonY);  // Y
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickL);  // Left Stick Button
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickR);  // Right Stick Button
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonL);  // L
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonR);  // R
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonZL);  // ZL
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonZR);  // ZR
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStart);  // Start
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonSelect);  // Select
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonUp);  // Up
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonDown);  // Down
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonLeft);  // Left
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonRight);  // Right
 
-            DoInputButton(settingsFrame, settingsSkewer, "Left Stick Up: ", InputConfig::ButtonStickLUp);
-            DoInputButton(settingsFrame, settingsSkewer, "Left Stick Right: ", InputConfig::ButtonStickLRight);
-            DoInputButton(settingsFrame, settingsSkewer, "Left Stick Down: ", InputConfig::ButtonStickLDown);
-            DoInputButton(settingsFrame, settingsSkewer, "Left Stick Left: ", InputConfig::ButtonStickLLeft);
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickLUp);  // Left Stick Up
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickLRight);  // Left Stick Right
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickLDown);  // Left Stick Down
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickLLeft);  // Left Stick Left
 
-            DoInputButton(settingsFrame, settingsSkewer, "Right Stick Up: ", InputConfig::ButtonStickRUp);
-            DoInputButton(settingsFrame, settingsSkewer, "Right Stick Right: ", InputConfig::ButtonStickRRight);
-            DoInputButton(settingsFrame, settingsSkewer, "Right Stick Down: ", InputConfig::ButtonStickRDown);
-            DoInputButton(settingsFrame, settingsSkewer, "Right Stick Left: ", InputConfig::ButtonStickRLeft);
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickRUp);  // Right Stick Up
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickRRight);  // Right Stick Right
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickRDown);  // Right Stick Down
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonStickRLeft);  // Right Stick Left
 
-            DoInputButton(settingsFrame, settingsSkewer, "Left SL: ", InputConfig::ButtonLeftSL);
-            DoInputButton(settingsFrame, settingsSkewer, "Left SR ", InputConfig::ButtonLeftSR);
-            DoInputButton(settingsFrame, settingsSkewer, "Right SL: ", InputConfig::ButtonRightSL);
-            DoInputButton(settingsFrame, settingsSkewer, "Right SR: ", InputConfig::ButtonRightSR);
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonLeftSL);  // Left SL
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonLeftSR);  // Left SR
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonRightSL);  // Right SL
+            DoInputButton(settingsFrame, settingsSkewer, "", InputConfig::ButtonRightSR);  // Right SR
 
             SectionHeader(settingsFrame, settingsSkewer, "Hotkeys Remapping");
 
-            DoInputButton(settingsFrame, settingsSkewer, "Pause ", InputConfig::Pause);
+            DoInputButton(settingsFrame, settingsSkewer, "Pause ", InputConfig::Pause, true);
             DoInputButton(settingsFrame, settingsSkewer, "Simulate Mic Noise: ", InputConfig::MicNoise);
             DoInputButton(settingsFrame, settingsSkewer, "Change Main Screen: ", InputConfig::changeScreen);
             DoInputButton(settingsFrame, settingsSkewer, "FastForward: ", InputConfig::fastForward);

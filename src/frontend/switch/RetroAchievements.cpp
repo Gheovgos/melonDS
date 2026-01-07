@@ -16,6 +16,8 @@
 #include "RATracker.h"
 #include "version.h"
 
+#include "i18n.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 
 extern "C" {
@@ -197,17 +199,17 @@ std::vector<Achievement> achievements_list() {
           const rc_client_achievement_t* achievement = list->buckets[i].achievements[j];
           Achievement ach;
 
-          ach.title = achievement->title ? achievement->title : "Unknown Title";
-          ach.description = achievement->description ? achievement->description : "No Description";
+          ach.title = achievement->title ? achievement->title : i18n::get("Unknown Title");
+          ach.description = achievement->description ? achievement->description : i18n::get("No Description");
 
           if (list->buckets[i].bucket_type == RC_CLIENT_ACHIEVEMENT_BUCKET_UNSUPPORTED) {
-              ach.progress = "Unsupported";
+              ach.progress = i18n::get("Unsupported");
           } else if (achievement->unlocked) {
-              ach.progress = "Unlocked";
+              ach.progress = i18n::get("Unlocked");
           } else if (achievement->measured_percent) {
               ach.progress = achievement->measured_progress;
           } else {
-              ach.progress = "Locked";
+              ach.progress = i18n::get("Locked");
           }
 
           if (rc_client_achievement_get_image_url(achievement, achievement->state, url, sizeof(url)) == RC_OK) {
@@ -351,7 +353,7 @@ static void game_mastered(void)
 static void achievement_triggered(const rc_client_achievement_t* achievement)
 {
   char url[128];
-  const char* message = "Achievement Unlocked";
+  const char* message = i18n::get("Achievement Unlocked");
 
   // the runtime already took care of dispatching the server request to notify the
   // server, we just have to tell the player.

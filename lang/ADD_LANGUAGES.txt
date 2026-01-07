@@ -1,0 +1,34 @@
+================================================================================
+  melonDS Switch - Language Files
+================================================================================
+
+LOCATION:
+  /switch/melonDS/lang/
+
+SUPPORTED LANGUAGES:
+  - en        (English - hardcoded, no file needed)
+  - zh_CN     (Simplified Chinese)
+  - zh_TW     (Traditional Chinese)
+  - ja        (Japanese)
+  - ko        (Korean)
+  - fr        (French)
+  - de        (German)
+  - it        (Italian)
+  - es        (Spanish)
+  - pt        (Portuguese)
+  - ru        (Russian)
+  - nl        (Dutch)
+
+HOW TO ADD A NEW LANGUAGE:
+  1. Copy zh_CN.json and rename it to your language code (e.g., ja.json)
+  2. Translate the values (NOT the keys) in the JSON file
+  3. Place the file in: /switch/melonDS/lang/
+  4. Restart melonDS to load the new language
+
+NOTES:
+  - melonDS automatically detects your Switch system language
+  - If no language file is found, it will fall back to English
+  - Only translate the text values, keep the JSON keys unchanged
+  - JSON format: {"key": "value", ...}
+
+================================================================================
