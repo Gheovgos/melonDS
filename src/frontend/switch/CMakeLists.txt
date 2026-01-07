@@ -21,6 +21,7 @@ SET(SOURCES_SWITCH
     InputConfig.cpp
     TriggerNotification.cpp
     RATracker.cpp
+    i18n.cpp
     ../Util_ROM.cpp
     ../Util_Audio.cpp
     ../Util_Video.cpp

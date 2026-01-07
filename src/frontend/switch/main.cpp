@@ -39,6 +39,8 @@
 #include "RATracker.h"
 #include "InputConfig.h"
 
+#include "i18n.h"
+
 bool Done = false;
 int CurrentUiScreen = uiScreen_Start;
 
@@ -1019,6 +1021,8 @@ int main(int argc, const char* argv[])
 
     hidInitializeTouchScreen();
     InputConfig::setupInputActions();
+
+    i18n::loadLanguage(i18n::getSystemLanguage());
 
     Gfx::Init();
 

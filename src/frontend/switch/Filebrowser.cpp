@@ -18,6 +18,8 @@
 #include <dirent.h>
 #include <assert.h>
 
+#include "i18n.h"
+
 namespace Filebrowser
 {
 
@@ -41,8 +43,8 @@ void Init()
 
     swkbdCreate(&SearchKeyboard, 0);
     swkbdConfigMakePresetDefault(&SearchKeyboard);
-    swkbdConfigSetOkButtonText(&SearchKeyboard, "Go");
-    swkbdConfigSetHeaderText(&SearchKeyboard, "Enter text to search for");
+    swkbdConfigSetOkButtonText(&SearchKeyboard, i18n::get("Go"));
+    swkbdConfigSetHeaderText(&SearchKeyboard, i18n::get("Enter text to search for"));
 }
 
 void DeInit()
@@ -205,7 +207,7 @@ SwkbdTextCheckResult CheckSearch(char* tmpString, size_t tmpSize)
 {
     if (FindNextOccurence(tmpString) == -1)
     {
-        strcpy(tmpString, "Couldn't find any matching file or directory :(");
+        strcpy(tmpString, i18n::get("Couldn't find any matching file or directory :("));
         return SwkbdTextCheckResult_Prompt;
     }
     return SwkbdTextCheckResult_OK;
@@ -243,7 +245,7 @@ void DoGui(BoxGui::Frame& parent)
         BoxGui::Skewer skewer{entryFrame, entryFrame.Area.Size.Y/2.f, BoxGui::direction_Horizontal};
         skewer.AlignLeft(20.f);
 
-        if (!entry.IsDirectory && entry.ROMDBEntry != -1 && CurrentFileListingMode)
+        if (!entry.IsDirectory && entry.ROMDBEntry != -1)
         {
             ROMMetaDatabase::ROMMeta& meta = ROMMetaDatabase::Database[entry.ROMDBEntry];
             if (meta.HasIcon)
@@ -261,7 +263,7 @@ void DoGui(BoxGui::Frame& parent)
                 skewer.CurrentPosition(), TextLineHeight,
                 DarkColor,
                 Gfx::align_Left, Gfx::align_Center,
-                meta.Title(ROMMetaDatabase::TitleLanguage));
+                CurrentFileListingMode ? meta.Title(ROMMetaDatabase::TitleLanguage) : &CurrentEntryNames[entry.Name]);
         }
         else
         {

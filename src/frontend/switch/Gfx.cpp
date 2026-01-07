@@ -22,6 +22,8 @@
 
 #include "CmdMemRing.h"
 
+#include "i18n.h"
+
 namespace Gfx
 {
 
@@ -419,6 +421,14 @@ float FontGetLineGap(u32 idx, float scale)
     return (float)Fonts[idx].LineGap * scale;
 }
 
+u32 SystemFontStandard;
+u32 SystemFontNintendoExt;
+u32 SystemFontLocalized = 0;
+
+u8* SystemFontStandardData;
+u8* SystemFontNintendoExtData;
+u8* SystemFontLocalizedData = nullptr;
+
 PackedGlyph& FontGetGlyph(u32 idx, u32 codepoint, float scale)
 {
     Font& font = Fonts[idx];
@@ -429,6 +439,17 @@ PackedGlyph& FontGetGlyph(u32 idx, u32 codepoint, float scale)
         PackedGlyph result;
 
         int glyphIndex = stbtt_FindGlyphIndex(&font.Info, codepoint);
+
+        // Fallback chain: Standard -> NintendoExt -> Localized
+        if (glyphIndex == 0 && idx == SystemFontStandard) {
+            int extGlyphIndex = stbtt_FindGlyphIndex(&Fonts[SystemFontNintendoExt].Info, codepoint);
+            if (extGlyphIndex != 0) {
+                return FontGetGlyph(SystemFontNintendoExt, codepoint, scale);
+            }
+            if (SystemFontLocalized != 0) {
+                return FontGetGlyph(SystemFontLocalized, codepoint, scale);
+            }
+        }
 
         stbtt_GetGlyphBitmapBox(&font.Info,
             glyphIndex,
@@ -461,12 +482,6 @@ PackedGlyph& FontGetGlyph(u32 idx, u32 codepoint, float scale)
         return existingRender->second;
     }
 }
-
-u32 SystemFontStandard;
-u32 SystemFontNintendoExt;
-
-u8* SystemFontStandardData;
-u8* SystemFontNintendoExtData;
 
 u32 WhiteTexture;
 
@@ -611,6 +626,15 @@ void Init()
     SystemFontNintendoExtData = new u8[font.size];
     memcpy(SystemFontNintendoExtData, font.address, font.size);
     SystemFontNintendoExt = FontLoad(SystemFontNintendoExtData);
+
+    // Load localized font if needed (Chinese/Korean)
+    int localizedType = i18n::getLocalizedFontType();
+    if (localizedType != -1 && R_SUCCEEDED(plGetSharedFontByType(&font, (PlSharedFontType)localizedType))) {
+        SystemFontLocalizedData = new u8[font.size];
+        memcpy(SystemFontLocalizedData, font.address, font.size);
+        SystemFontLocalized = FontLoad(SystemFontLocalizedData);
+    }
+
     plExit();
 
     WhiteTexture = TextureCreate(8, 8, DkImageFormat_R8_Unorm);
@@ -621,6 +645,10 @@ void DeInit()
 {
     FontDelete(SystemFontNintendoExt);
     FontDelete(SystemFontStandard);
+    if (SystemFontLocalized) {
+        FontDelete(SystemFontLocalized);
+        delete[] SystemFontLocalizedData;
+    }
     delete[] SystemFontStandardData;
     delete[] SystemFontNintendoExtData;
 
@@ -1020,6 +1048,7 @@ void DrawRectangle(u32 texIdx,
 
 Vector2f MeasureText(u32 fontIdx, float size, const char* text)
 {
+    text = i18n::get(text);
     float scale = FontGetScale(fontIdx, size);
     float lineGap = FontGetLineGap(fontIdx, scale);
     u32 lines = 1;
@@ -1050,6 +1079,7 @@ Vector2f MeasureText(u32 fontIdx, float size, const char* text)
 
 Vector2f DrawText(u32 fontIdx, Vector2f position, float size, Color color, int horizontalAlign, int verticalAlign, const char* text)
 {
+    text = i18n::get(text);
     float scale = FontGetScale(fontIdx, size);
     float ascent = FontGetAscent(fontIdx, scale);
     float lineGap = FontGetLineGap(fontIdx, scale);
@@ -1114,6 +1144,7 @@ Vector2f DrawText(u32 fontIdx, Vector2f position, float size, Color color, int h
 
 Vector2f DrawText(u32 fontIdx, Vector2f position, float size, Color color, const char* format, ...)
 {
+    format = i18n::get(format);
     va_list vargs;
     va_start(vargs, format);
     int requiredLength = vsnprintf(NULL, 0, format, vargs) + 1;
